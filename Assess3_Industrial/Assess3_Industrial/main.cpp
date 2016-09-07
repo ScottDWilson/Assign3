@@ -1,6 +1,11 @@
+//license boilerplate
+
+#include "scottheader.h"
+
 #include <opencv2/opencv.hpp>
 #include <iostream>
 
+//remove
 using namespace cv;
 using namespace std;
 

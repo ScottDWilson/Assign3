@@ -1,6 +1,11 @@
+//license boilerplate
+
 #ifndef ASSESS3INDUSTRIAL_ASSESS3INDUSTRIAL_SCOTTHEADER_H_
 #define ASSESS3INDUSTRIAL_ASSESS3INDUSTRIAL_SCOTTHEADER_H_
 
+namespace scottindustrial {
 
+
+} //namespace scottindustrial
 
 #endif //ASSESS3INDUSTRIAL_ASSESS3INDUSTRIAL_SCOTTHEADER_H_
