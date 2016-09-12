@@ -15,15 +15,28 @@
 
 namespace scottindustrial {
 
-  //SURF Processing Function. Returns integer of number of keypoints 
-  int MySurfProcess(const int minHessian,const cv::Mat& input, cv::Mat& output);
-
-  //@Breif Performs SIFT feature detection on an image. Returns integer of number of keypoints and draw keypoints on output Mat object
+  //@Breif Performs SURF feature detection on an image. Returns vector of number of keypoints and time taken to detect. Also draws keypoints on output Mat object
   //@Param minHessian Hessian value for detecting features. Number of best features to maintain
   //@Param Input source image
   //@Param Output image with key features illustrated
-  int MySiftProcess(const int minHessian, const cv::Mat& input, cv::Mat& output);
+  std::vector<double> MySurfProcess(const int minHessian,const cv::Mat& input, cv::Mat& output);
 
+  //@Breif Performs SIFT feature detection on an image. Returns vector of number of keypoints and time taken to detect. Also draws keypoints on output Mat object
+  //@Param minHessian Hessian value for detecting features. Number of best features to maintain
+  //@Param Input source image
+  //@Param Output image with key features illustrated
+  std::vector<double> MySiftProcess(const int minHessian, const cv::Mat& input, cv::Mat& output);
+
+  //@Breif Performs ORB feature detection on an image. Returns vector of number of keypoints and time taken to detect. Also draws keypoints on output Mat object
+  //@Param minHessian Hessian value for detecting features. Number of best features to maintain
+  //@Param Input source image
+  //@Param Output image with key features illustrated
+  std::vector<double> MyOrbProcess(const int minHessian, const cv::Mat& input, cv::Mat& output);
+
+  //@Brief Prints Feature Detection results (number of features detected and time taken) to command line
+  //@Param input_vector Vector of type double containing number of features detected and time taken from processing function
+  //@Param detector_type String containing name of feature detector used
+  void printFeatureResult(const std::vector<double> input_vector, const char* detector_type);
 } //namespace scottindustrial
 
 #endif //ASSESS3INDUSTRIAL_ASSESS3INDUSTRIAL_SCOTTHEADER_H_

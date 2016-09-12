@@ -18,10 +18,12 @@ int main(int argc, char** argv)
 	  std::cout << " Error in input: Please load an Image" << std::endl;
 	  return -1;
 	}
+  char surf_type[5] = "SURF";
+  char sift_type[5] = "SIFT";
+  char orb_type[5] = "ORB";
 
 	cv::Mat my_image;
-  cv::Mat out_surf_im;
-  cv::Mat out_sift_im;
+
 	my_image = cv::imread(argv[1], CV_LOAD_IMAGE_COLOR);   // Read the file
 
 	if (!my_image.cv::Mat::data)                              // Check for invalid input
@@ -29,24 +31,26 @@ int main(int argc, char** argv)
 		std::cout << "Image could not be found" << std::endl;
 		return -1;
 	}
-  my_image.cv::Mat::copyTo(out_surf_im);
-  my_image.cv::Mat::copyTo(out_sift_im);
+  cv::Mat out_surf_im = my_image.cv::Mat::clone();
+  cv::Mat out_sift_im = my_image.cv::Mat::clone();
+  cv::Mat out_orb_im = my_image.cv::Mat::clone();
 
   int Hessian = 400;
-  int surf_number_keyPoints = 0;
-  int sift_number_keyPoints = 0;
 
-  surf_number_keyPoints = scottindustrial::MySurfProcess(Hessian, my_image, out_surf_im);
-  std::cout << "SURF Feature Detection" << std::endl;
-  std::cout << "Features Detected:" << std::endl;
-  std::cout << surf_number_keyPoints << std::endl;
+  std::vector<double> surf_output(2);
+  surf_output = scottindustrial::MySurfProcess(Hessian, my_image, out_surf_im);
+  scottindustrial::printFeatureResult(surf_output, surf_type);
   cv::imshow("SURF Features", out_surf_im);
 
-  sift_number_keyPoints = scottindustrial::MySiftProcess(Hessian, my_image, out_sift_im);
-  std::cout << "SIFT Feature Detection" << std::endl;
-  std::cout << "Features Detected:" << std::endl;
-  std::cout << sift_number_keyPoints << std::endl;
+  std::vector<double> sift_output(2);
+  sift_output = scottindustrial::MySiftProcess(Hessian, my_image, out_sift_im);
+  scottindustrial::printFeatureResult(sift_output, sift_type);
   cv::imshow("SIFT Features", out_sift_im);
+
+  std::vector<double> orb_output(2);
+  orb_output = scottindustrial::MyOrbProcess(Hessian, my_image, out_orb_im);
+  scottindustrial::printFeatureResult(orb_output, orb_type);
+  cv::imshow("ORB Features", out_orb_im);
 
 	cv::namedWindow("Original Image", cv::WINDOW_AUTOSIZE);  // Create a window for display.
 	cv::imshow("Original Image", my_image);                 // Show our image inside it.
@@ -54,64 +58,3 @@ int main(int argc, char** argv)
 	cv::waitKey(0);                                      // Wait for a keystroke in the window
 	return 0;
 }
-
-
-
-//#include <stdio.h>
-//#include <iostream>
-//#include "opencv2/core.hpp"
-//#include "opencv2/features2d.hpp"
-//#include "opencv2/xfeatures2d.hpp"
-//#include "opencv2/highgui.hpp"
-//
-//using namespace cv;
-//using namespace cv::xfeatures2d;
-//
-//void readme();
-//
-///** @function main */
-//int main(int argc, char** argv)
-//{
-//  if (argc != 3)
-//  {
-//    readme(); return -1;
-//  }
-//
-//  Mat img_1 = imread(argv[1], IMREAD_GRAYSCALE);
-//  Mat img_2 = imread(argv[2], IMREAD_GRAYSCALE);
-//
-//  if (!img_1.data || !img_2.data)
-//  {
-//    std::cout << " --(!) Error reading images " << std::endl; return -1;
-//  }
-//
-//  //-- Step 1: Detect the keypoints using SURF Detector
-//  int minHessian = 400;
-//
-//  Ptr<SURF> detector = SURF::create(minHessian);
-//
-//  std::vector<KeyPoint> keypoints_1, keypoints_2;
-//
-//  detector->detect(img_1, keypoints_1);
-//  detector->detect(img_2, keypoints_2);
-//
-//  //-- Draw keypoints
-//  Mat img_keypoints_1; Mat img_keypoints_2;
-//
-//  drawKeypoints(img_1, keypoints_1, img_keypoints_1, Scalar::all(-1), DrawMatchesFlags::DEFAULT);
-//  drawKeypoints(img_2, keypoints_2, img_keypoints_2, Scalar::all(-1), DrawMatchesFlags::DEFAULT);
-//
-//  //-- Show detected (drawn) keypoints
-//  imshow("Keypoints 1", img_keypoints_1);
-//  imshow("Keypoints 2", img_keypoints_2);
-//
-//  waitKey(0);
-//
-//  return 0;
-//}
-//
-///** @function readme */
-//void readme()
-//{
-//  std::cout << " Usage: ./SURF_detector <img1> <img2>" << std::endl;
-//}
