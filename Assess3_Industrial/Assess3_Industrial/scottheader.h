@@ -16,7 +16,7 @@
 namespace scottindustrial {
 
   //Function Prototype
-  void MySurfProcess(const int minHessian,cv::Mat& input, cv::Mat& output);
+  int MySurfProcess(const int minHessian,const cv::Mat& input, cv::Mat& output);
 
 } //namespace scottindustrial
 

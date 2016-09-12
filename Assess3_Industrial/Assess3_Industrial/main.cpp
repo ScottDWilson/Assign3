@@ -5,60 +5,44 @@
 #include <opencv2/opencv.hpp>
 #include <iostream>
 
-#include "opencv2/core/core.hpp"
-#include "opencv2/features2d/features2d.hpp"
+#include <opencv2/core/core.hpp>
+#include <opencv2/features2d/features2d.hpp>
 #include <opencv2/xfeatures2d.hpp>
 #include <opencv2/xfeatures2d/nonfree.hpp>
-#include "opencv2/highgui/highgui.hpp"
-//#include "opencv2/nonfree/nonfree.hpp"
-
-//remove
-using namespace cv;
-using namespace std;
-using namespace xfeatures2d;
+#include <opencv2/highgui/highgui.hpp>
 
 int main(int argc, char** argv)
 {
 	if (argc != 2)
 	{
-		cout << " Usage: display_image ImageToLoadAndDisplay" << endl;
-		return -1;
+	  std::cout << " Error in input: Please load an Image" << std::endl;
+	  return -1;
 	}
 
-	Mat image;
-  Mat out_im;
-	image = imread(argv[1], CV_LOAD_IMAGE_COLOR);   // Read the file
+	cv::Mat my_image;
+  cv::Mat out_im;
+	my_image = cv::imread(argv[1], CV_LOAD_IMAGE_COLOR);   // Read the file
 
-	if (!image.data)                              // Check for invalid input
+	if (!my_image.cv::Mat::data)                              // Check for invalid input
 	{
-		cout << "Could not open or find the image" << std::endl;
+		std::cout << "Image could not be found" << std::endl;
 		return -1;
 	}
-  image.copyTo(out_im);
+  my_image.cv::Mat::copyTo(out_im);
+
   int Hessian = 400;
-  int number_keyPoints = 0;
-  //SurfFeatureDetector detector(minHessian);
+  int surf_number_keyPoints = 0;
 
-  /*
-  Ptr<SURF> detector = SURF::create(minHessian);
+  surf_number_keyPoints = scottindustrial::MySurfProcess(Hessian, my_image, out_im);
 
-  std::vector<KeyPoint> keypoints_1, keypoints_2;
+  std::cout << surf_number_keyPoints << std::endl;
 
-  detector->detect(image, keypoints_1);
-  Mat img_keypoints_1;
-  drawKeypoints(image, keypoints_1, img_keypoints_1, Scalar::all(-1), DrawMatchesFlags::DEFAULT);
-  */
+  cv::imshow("Features", out_im);
 
-  scottindustrial::MySurfProcess(Hessian, image, out_im);
-  //cout << keypoints_1.size() << endl;
-  cout << number_keyPoints << endl;
+	cv::namedWindow("Original Image", cv::WINDOW_AUTOSIZE);  // Create a window for display.
+	cv::imshow("Original Image", my_image);                 // Show our image inside it.
 
-    imshow("Keypoints 1", out_im);
-
-	namedWindow("Display window", WINDOW_AUTOSIZE);// Create a window for display.
-	imshow("Display window", image);                   // Show our image inside it.
-
-	waitKey(0);                                          // Wait for a keystroke in the window
+	cv::waitKey(0);                                      // Wait for a keystroke in the window
 	return 0;
 }
 
