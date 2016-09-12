@@ -20,7 +20,8 @@ int main(int argc, char** argv)
 	}
 
 	cv::Mat my_image;
-  cv::Mat out_im;
+  cv::Mat out_surf_im;
+  cv::Mat out_sift_im;
 	my_image = cv::imread(argv[1], CV_LOAD_IMAGE_COLOR);   // Read the file
 
 	if (!my_image.cv::Mat::data)                              // Check for invalid input
@@ -28,16 +29,24 @@ int main(int argc, char** argv)
 		std::cout << "Image could not be found" << std::endl;
 		return -1;
 	}
-  my_image.cv::Mat::copyTo(out_im);
+  my_image.cv::Mat::copyTo(out_surf_im);
+  my_image.cv::Mat::copyTo(out_sift_im);
 
   int Hessian = 400;
   int surf_number_keyPoints = 0;
+  int sift_number_keyPoints = 0;
 
-  surf_number_keyPoints = scottindustrial::MySurfProcess(Hessian, my_image, out_im);
-
+  surf_number_keyPoints = scottindustrial::MySurfProcess(Hessian, my_image, out_surf_im);
+  std::cout << "SURF Feature Detection" << std::endl;
+  std::cout << "Features Detected:" << std::endl;
   std::cout << surf_number_keyPoints << std::endl;
+  cv::imshow("SURF Features", out_surf_im);
 
-  cv::imshow("Features", out_im);
+  sift_number_keyPoints = scottindustrial::MySiftProcess(Hessian, my_image, out_sift_im);
+  std::cout << "SIFT Feature Detection" << std::endl;
+  std::cout << "Features Detected:" << std::endl;
+  std::cout << sift_number_keyPoints << std::endl;
+  cv::imshow("SIFT Features", out_sift_im);
 
 	cv::namedWindow("Original Image", cv::WINDOW_AUTOSIZE);  // Create a window for display.
 	cv::imshow("Original Image", my_image);                 // Show our image inside it.

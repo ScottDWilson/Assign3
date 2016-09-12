@@ -7,12 +7,19 @@
 int scottindustrial::MySurfProcess(const int minHessian, const cv::Mat& input, cv::Mat& output) {
   cv::Ptr<cv::xfeatures2d::SURF> detector = cv::xfeatures2d::SURF::create(minHessian);
 
-  std::vector<cv::KeyPoint> keypoints_1, keypoints_2;
+  std::vector<cv::KeyPoint> keypoints;
   //input.copyTo(output);
-  detector->detect(input, keypoints_1);
+  detector->detect(input, keypoints);
   cv::Mat img_keypoints_1;
-  drawKeypoints(input, keypoints_1, output, cv::Scalar::all(-1), cv::DrawMatchesFlags::DEFAULT); //img_keypoints_1
+  drawKeypoints(input, keypoints, output, cv::Scalar::all(-1), cv::DrawMatchesFlags::DEFAULT); //img_keypoints_1
 
-  return  keypoints_1.size();
+  return  keypoints.size();
 }
 
+int scottindustrial::MySiftProcess(const int minHessian, const cv::Mat& input, cv::Mat& output) {
+  cv::Ptr<cv::xfeatures2d::SIFT> detector = cv::xfeatures2d::SIFT::create(minHessian); //int _nfeatures, int _nOctaveLayers, double _contrastThreshold, double _edgeThreshold, double _sigma);
+  std::vector<cv::KeyPoint> keypoints;
+  detector->detect(input, keypoints);
+  drawKeypoints(input, keypoints, output, cv::Scalar::all(-1), cv::DrawMatchesFlags::DEFAULT);
+  return keypoints.size();
+}

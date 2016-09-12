@@ -15,8 +15,14 @@
 
 namespace scottindustrial {
 
-  //Function Prototype
+  //SURF Processing Function. Returns integer of number of keypoints 
   int MySurfProcess(const int minHessian,const cv::Mat& input, cv::Mat& output);
+
+  //@Breif Performs SIFT feature detection on an image. Returns integer of number of keypoints and draw keypoints on output Mat object
+  //@Param minHessian Hessian value for detecting features. Number of best features to maintain
+  //@Param Input source image
+  //@Param Output image with key features illustrated
+  int MySiftProcess(const int minHessian, const cv::Mat& input, cv::Mat& output);
 
 } //namespace scottindustrial
 
