@@ -9,6 +9,14 @@
 * Written by Scott Wilson <scottywilson42@gmail.com>, September 2016
 *******************************************************/
 
+/*******************************************************
+This program performs a performance test on SURF, SIFT, and ORB feature detection. The feature detectors were taken from
+the OpenCV libraries. The program can be run on any image, and will display the number of features detected by each detector,
+the time taken for the feature detector to be performed, and the image with features illustrated. 
+An error will be displayed if the program is run correctly. For the program to be run correctly, run the executable and load 
+a .jpg image file. The image file must be in the same directory as the executable. 
+*******************************************************/
+
 #include "scottheader.h"
 
 #include <opencv2/opencv.hpp>
@@ -60,13 +68,13 @@ int main(int argc, char** argv)
 
   // Calculation of SIFT Feature Detection performance
   std::vector<double> sift_output(2);  // Creation of vector to store feature detection performance results; number of features detected (1) and time taken (2)
-  sift_output = scottindustrial::MySiftProcess(Hessian, my_image, out_sift_im);
+  sift_output = scottindustrial::MySiftProcess(Hessian, my_image, out_sift_im);  // Perform SIFT feature detection of loaded image. Returns the number of features detected and time taken. 
   scottindustrial::printFeatureResult(sift_output, sift_type);  //Display results from SIFT feature detection. Display shows Type of Feature Detection, Number of features detected, and Time taken to detect features. 
   cv::imshow("SIFT Features", out_sift_im);
 
   // Calculation of ORB Feature Detection performance
   std::vector<double> orb_output(2);  // Creation of vector to store feature detection performance results; number of features detected (1) and time taken (2)
-  orb_output = scottindustrial::MyOrbProcess(Hessian, my_image, out_orb_im);
+  orb_output = scottindustrial::MyOrbProcess(Hessian, my_image, out_orb_im);  // Perform SIFT feature detection of loaded image. Returns the number of features detected and time taken. 
   scottindustrial::printFeatureResult(orb_output, orb_type);  //Display results from ORB feature detection. Display shows Type of Feature Detection, Number of features detected, and Time taken to detect features. 
   cv::imshow("ORB Features", out_orb_im);
 
