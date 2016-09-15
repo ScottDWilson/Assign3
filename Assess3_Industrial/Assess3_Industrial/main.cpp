@@ -5,7 +5,8 @@
 * This file is part of Industrial Systems Assessment 3 - Feature Detection comparison.
 *
 * Industrial Systems Assessment 3 - Feature Detection comparison can not be copied and/or distributed without the express
-* permission of Scott Wilson
+* permission of Scott Wilson. Unauthorised copying, or distribution, of this file will result in severe penalties for
+* seven generations. 
 * Written by Scott Wilson <scottywilson42@gmail.com>, September 2016
 *******************************************************/
 
@@ -62,19 +63,19 @@ int main(int argc, char** argv)
 
   // Calculation of SURF Feature Detection performance
   std::vector<double> surf_output(2);  // Creation of vector to store feature detection performance results; number of features detected (1) and time taken (2)
-  surf_output = scottindustrial::MySurfProcess(Hessian, my_image, out_surf_im);  // Perform SURF feature detection of loaded image. Returns the number of features detected and time taken. 
+  surf_output = scottindustrial::mySurfProcess(Hessian, my_image, out_surf_im);  // Perform SURF feature detection of loaded image. Returns the number of features detected and time taken. 
   scottindustrial::printFeatureResult(surf_output, surf_type);  //Display results from SURF feature detection. Display shows Type of Feature Detection, Number of features detected, and Time taken to detect features. 
   cv::imshow("SURF Features", out_surf_im);
 
   // Calculation of SIFT Feature Detection performance
   std::vector<double> sift_output(2);  // Creation of vector to store feature detection performance results; number of features detected (1) and time taken (2)
-  sift_output = scottindustrial::MySiftProcess(Hessian, my_image, out_sift_im);  // Perform SIFT feature detection of loaded image. Returns the number of features detected and time taken. 
+  sift_output = scottindustrial::mySiftProcess(Hessian, my_image, out_sift_im);  // Perform SIFT feature detection of loaded image. Returns the number of features detected and time taken. 
   scottindustrial::printFeatureResult(sift_output, sift_type);  //Display results from SIFT feature detection. Display shows Type of Feature Detection, Number of features detected, and Time taken to detect features. 
   cv::imshow("SIFT Features", out_sift_im);
 
   // Calculation of ORB Feature Detection performance
   std::vector<double> orb_output(2);  // Creation of vector to store feature detection performance results; number of features detected (1) and time taken (2)
-  orb_output = scottindustrial::MyOrbProcess(Hessian, my_image, out_orb_im);  // Perform SIFT feature detection of loaded image. Returns the number of features detected and time taken. 
+  orb_output = scottindustrial::myOrbProcess(Hessian, my_image, out_orb_im);  // Perform SIFT feature detection of loaded image. Returns the number of features detected and time taken. 
   scottindustrial::printFeatureResult(orb_output, orb_type);  //Display results from ORB feature detection. Display shows Type of Feature Detection, Number of features detected, and Time taken to detect features. 
   cv::imshow("ORB Features", out_orb_im);
 

@@ -9,13 +9,21 @@
 * Written by Scott Wilson <scottywilson42@gmail.com>, September 2016
 *******************************************************/
 
+/*******************************************************
+* This file contains the function definitions for
+* scottindustrial::mySurfProcess()
+* scottindustrial::mySiftProcess()
+* scottindustrial::myOrbProcess()
+* scottindustrial::printFeatureResult()
+*******************************************************/
+
 #include "scottheader.h"
 
-// Function to perform SURF Feature Detection Processing. Takes minimum Hessian value as input, the input Mat image, and a Mat image to store the output.
-// Returns an integer of number of keypoints in the input image. Keypoint locations illustrated on output image
+// Function to perform SURF Feature Detection Processing. Takes minimum Hessian value as input (minimum number of features), the input Mat image, and a Mat image to store the output.
+// Returns an integer of number of keypoints in the input image. Keypoint locations are illustrated on output image
 // Example of Use
 // surf_key_values = MySurfProcess(400, my_image, my_out_image);
-std::vector<double> scottindustrial::MySurfProcess(const int minHessian, const cv::Mat& input, cv::Mat& output) {
+std::vector<double> scottindustrial::mySurfProcess(const int minHessian, const cv::Mat& input, cv::Mat& output) {
   cv::Ptr<cv::xfeatures2d::SURF> detector = cv::xfeatures2d::SURF::create(minHessian);
   double time1, time2, time_taken = 0;
   std::vector<double> output_vector(2);
@@ -36,7 +44,11 @@ std::vector<double> scottindustrial::MySurfProcess(const int minHessian, const c
   return  output_vector;
 }
 
-std::vector<double> scottindustrial::MySiftProcess(const int minHessian, const cv::Mat& input, cv::Mat& output) {
+// Function to perform SIFT Feature Detection Processing. Takes minimum Hessian value as input (minimum number of features), the input Mat image, and a Mat image to store the output.
+// Returns an integer of number of keypoints in the input image. Keypoint locations are illustrated on output image
+// Example of Use
+// sift_key_values = MySiftProcess(400, my_image, my_out_image);
+std::vector<double> scottindustrial::mySiftProcess(const int minHessian, const cv::Mat& input, cv::Mat& output) {
   cv::Ptr<cv::xfeatures2d::SIFT> detector = cv::xfeatures2d::SIFT::create(minHessian); //int _nfeatures, int _nOctaveLayers, double _contrastThreshold, double _edgeThreshold, double _sigma);
   double time1, time2, time_taken = 0;
   std::vector<double> output_vector(2);
@@ -57,7 +69,11 @@ std::vector<double> scottindustrial::MySiftProcess(const int minHessian, const c
   return  output_vector;
 }
 
-std::vector<double> scottindustrial::MyOrbProcess(const int minHessian, const cv::Mat& input, cv::Mat& output) {
+// Function to perform ORB Feature Detection Processing. Takes minimum Hessian value as input (minimum number of features), the input Mat image, and a Mat image to store the output.
+// Returns an integer of number of keypoints in the input image. Keypoint locations are illustrated on output image
+// Example of Use
+// orb_key_values = MyOrbProcess(400, my_image, my_out_image);
+std::vector<double> scottindustrial::myOrbProcess(const int minHessian, const cv::Mat& input, cv::Mat& output) {
   cv::Ptr<cv::ORB> detector = cv::ORB::create(minHessian); //int _nfeatures, int _nOctaveLayers, double _contrastThreshold, double _edgeThreshold, double _sigma);
   double time1, time2, time_taken = 0;
   std::vector<double> output_vector(2);
@@ -78,8 +94,12 @@ std::vector<double> scottindustrial::MyOrbProcess(const int minHessian, const cv
   return  output_vector;
 }
 
-void scottindustrial::printFeatureResult(const std::vector<double> input_vector, const char* detector_type) {
+// Function to display feature detection performance results. 
+// Displays the type of feature detection used, the number of features detected, and the time taken for the feature detection
+// Example of Use
+// scottindustrial::printFeatureResult(vector containing performance results, type of feature detection);
+void scottindustrial::printFeatureResult(const std::vector<double> performance_vector, const char* detector_type) {
   std::cout << detector_type << " Feature Detection" << std::endl;
-  std::cout << "Features Detected: " << input_vector[0] << std::endl;
-  std::cout << "Time Taken: " << input_vector[1] << std::endl;
+  std::cout << "Features Detected: " << performance_vector[0] << std::endl;
+  std::cout << "Time Taken: " << performance_vector[1] << std::endl;
 }
