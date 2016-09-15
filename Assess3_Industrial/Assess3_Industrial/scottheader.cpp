@@ -1,7 +1,15 @@
-//license boilerplate
+/*******************************************************
+* Copyright (C) 2016 Scott Wilson - All Rights Reserved
+* Unauthorized copying of this file, via any medium is strictly prohibited
+*
+* This file is part of Industrial Systems Assessment 3 - Feature Detection comparison.
+*
+* Industrial Systems Assessment 3 - Feature Detection comparison can not be copied and/or distributed without the express
+* permission of Scott Wilson
+* Written by Scott Wilson <scottywilson42@gmail.com>, September 2016
+*******************************************************/
 
 #include "scottheader.h"
-#include <ctime>
 
 // Function to perform SURF Feature Detection Processing. Takes minimum Hessian value as input, the input Mat image, and a Mat image to store the output.
 // Returns an integer of number of keypoints in the input image. Keypoint locations illustrated on output image
@@ -15,11 +23,12 @@ std::vector<double> scottindustrial::MySurfProcess(const int minHessian, const c
 
   //Calculating the time taken for the detect function to run
   time1 = (double)cv::getTickCount();
-  detector->detect(input, keypoints);
+  detector->cv::Feature2D::detect(input, keypoints);
   time2 = (double)cv::getTickCount();
   time_taken = (time2 - time1) / cv::getTickFrequency();
 
-  drawKeypoints(input, keypoints, output, cv::Scalar::all(-1), cv::DrawMatchesFlags::DEFAULT); //img_keypoints_1
+  //Marks location of keypoints on output Mat object with circles. 
+  cv::drawKeypoints(input, keypoints, output, cv::Scalar::all(-1), cv::DrawMatchesFlags::DEFAULT); //img_keypoints_1
   
   int number_keypoints = keypoints.size();
   output_vector[0] = number_keypoints;
@@ -36,11 +45,11 @@ std::vector<double> scottindustrial::MySiftProcess(const int minHessian, const c
 
   //Calculating the time taken for the detect function to run
   time1 = (double)cv::getTickCount();
-  detector->detect(input, keypoints);
+  detector->cv::Feature2D::detect(input, keypoints);
   time2 = (double)cv::getTickCount();
   time_taken = (time2 - time1) / (cv::getTickFrequency());
 
-  drawKeypoints(input, keypoints, output, cv::Scalar::all(-1), cv::DrawMatchesFlags::DEFAULT);
+  cv::drawKeypoints(input, keypoints, output, cv::Scalar::all(-1), cv::DrawMatchesFlags::DEFAULT);
   
   int number_keypoints = keypoints.size();
   output_vector[0] = number_keypoints;
@@ -57,11 +66,11 @@ std::vector<double> scottindustrial::MyOrbProcess(const int minHessian, const cv
 
   //Calculating the time taken for the detect function to run
   time1 = (double)cv::getTickCount();
-  detector->detect(input, keypoints);
+  detector->cv::Feature2D::detect(input, keypoints);
   time2 = (double)cv::getTickCount();
   time_taken = (time2 - time1) / (cv::getTickFrequency());
 
-  drawKeypoints(input, keypoints, output, cv::Scalar::all(-1), cv::DrawMatchesFlags::DEFAULT);
+  cv::drawKeypoints(input, keypoints, output, cv::Scalar::all(-1), cv::DrawMatchesFlags::DEFAULT);
 
   int number_keypoints = keypoints.size();
   output_vector[0] = number_keypoints;
