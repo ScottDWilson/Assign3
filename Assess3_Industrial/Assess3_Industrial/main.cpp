@@ -16,6 +16,7 @@ the OpenCV libraries. The program can be run on any image, and will display the 
 the time taken for the feature detector to be performed, and the image with features illustrated. 
 An error will be displayed if the program is run correctly. For the program to be run correctly, run the executable and load 
 a .jpg image file. The image file must be in the same directory as the executable. 
+The program is written in accordance to the Google C++ Style Guide. 
 *******************************************************/
 
 #include "scottheader.h"
@@ -39,7 +40,6 @@ int main(int argc, char** argv)
 	  return -1;
 	}
   // String variables to pass into 
-  char surf_type[5] = "SURF";
   char sift_type[5] = "SIFT";
   char orb_type[5] = "ORB";
 
@@ -54,18 +54,11 @@ int main(int argc, char** argv)
 		return -1;
 	}
   // Creation of Mat Object Variables to store output feature detected images
-  cv::Mat out_surf_im = my_image.cv::Mat::clone();
   cv::Mat out_sift_im = my_image.cv::Mat::clone();
   cv::Mat out_orb_im = my_image.cv::Mat::clone();
 
   // Creation of variable for minimum number of features to be detected
-  int Hessian = 400;
-
-  // Calculation of SURF Feature Detection performance
-  std::vector<double> surf_output(2);  // Creation of vector to store feature detection performance results; number of features detected (1) and time taken (2)
-  surf_output = scottindustrial::mySurfProcess(Hessian, my_image, out_surf_im);  // Perform SURF feature detection of loaded image. Returns the number of features detected and time taken. 
-  scottindustrial::printFeatureResult(surf_output, surf_type);  //Display results from SURF feature detection. Display shows Type of Feature Detection, Number of features detected, and Time taken to detect features. 
-  cv::imshow("SURF Features", out_surf_im);
+  int Hessian = 1000;
 
   // Calculation of SIFT Feature Detection performance
   std::vector<double> sift_output(2);  // Creation of vector to store feature detection performance results; number of features detected (1) and time taken (2)

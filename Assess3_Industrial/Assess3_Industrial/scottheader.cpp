@@ -23,8 +23,8 @@
 // Returns an integer of number of keypoints in the input image. Keypoint locations are illustrated on output image
 // Example of Use
 // surf_key_values = MySurfProcess(400, my_image, my_out_image);
-std::vector<double> scottindustrial::mySurfProcess(const int minHessian, const cv::Mat& input, cv::Mat& output) {
-  cv::Ptr<cv::xfeatures2d::SURF> detector = cv::xfeatures2d::SURF::create(minHessian);
+std::vector<double> scottindustrial::mySurfProcess(const int min_features, const cv::Mat& input, cv::Mat& output) {
+  cv::Ptr<cv::xfeatures2d::SURF> detector = cv::xfeatures2d::SURF::create(min_features);
   double time1, time2, time_taken = 0;
   std::vector<double> output_vector(2);
   std::vector<cv::KeyPoint> keypoints;
@@ -48,8 +48,8 @@ std::vector<double> scottindustrial::mySurfProcess(const int minHessian, const c
 // Returns an integer of number of keypoints in the input image. Keypoint locations are illustrated on output image
 // Example of Use
 // sift_key_values = MySiftProcess(400, my_image, my_out_image);
-std::vector<double> scottindustrial::mySiftProcess(const int minHessian, const cv::Mat& input, cv::Mat& output) {
-  cv::Ptr<cv::xfeatures2d::SIFT> detector = cv::xfeatures2d::SIFT::create(minHessian); //int _nfeatures, int _nOctaveLayers, double _contrastThreshold, double _edgeThreshold, double _sigma);
+std::vector<double> scottindustrial::mySiftProcess(const int min_features, const cv::Mat& input, cv::Mat& output) {
+  cv::Ptr<cv::xfeatures2d::SIFT> detector = cv::xfeatures2d::SIFT::create(min_features); //int _nfeatures, int _nOctaveLayers, double _contrastThreshold, double _edgeThreshold, double _sigma);
   double time1, time2, time_taken = 0;
   std::vector<double> output_vector(2);
   std::vector<cv::KeyPoint> keypoints;
@@ -73,8 +73,8 @@ std::vector<double> scottindustrial::mySiftProcess(const int minHessian, const c
 // Returns an integer of number of keypoints in the input image. Keypoint locations are illustrated on output image
 // Example of Use
 // orb_key_values = MyOrbProcess(400, my_image, my_out_image);
-std::vector<double> scottindustrial::myOrbProcess(const int minHessian, const cv::Mat& input, cv::Mat& output) {
-  cv::Ptr<cv::ORB> detector = cv::ORB::create(minHessian); //int _nfeatures, int _nOctaveLayers, double _contrastThreshold, double _edgeThreshold, double _sigma);
+std::vector<double> scottindustrial::myOrbProcess(const int min_features, const cv::Mat& input, cv::Mat& output) {
+  cv::Ptr<cv::ORB> detector = cv::ORB::create(min_features); //int _nfeatures, int _nOctaveLayers, double _contrastThreshold, double _edgeThreshold, double _sigma);
   double time1, time2, time_taken = 0;
   std::vector<double> output_vector(2);
   std::vector<cv::KeyPoint> keypoints;
