@@ -24,14 +24,15 @@
 // Example of Use
 // surf_key_values = MySurfProcess(400, my_image, my_out_image);
 std::vector<double> scottindustrial::mySurfProcess(const int min_features, const cv::Mat& input, cv::Mat& output) {
-  cv::Ptr<cv::xfeatures2d::SURF> detector = cv::xfeatures2d::SURF::create(min_features);
+  cv::Ptr<cv::xfeatures2d::SURF> detector = cv::xfeatures2d::SURF::create(min_features);  // Creation of detector of type SURF
   double time1, time2, time_taken = 0;
   std::vector<double> output_vector(2);
   std::vector<cv::KeyPoint> keypoints;
 
   //Calculating the time taken for the detect function to run
+  //Time measured by taking difference of time before function, time after function, divided by the tick frequency. 
   time1 = (double)cv::getTickCount();
-  detector->cv::Feature2D::detect(input, keypoints);
+  detector->cv::Feature2D::detect(input, keypoints);  //Detect features in input image. Stores coordinates of key points in keypoints variable
   time2 = (double)cv::getTickCount();
   time_taken = (time2 - time1) / cv::getTickFrequency();
 
@@ -48,19 +49,20 @@ std::vector<double> scottindustrial::mySurfProcess(const int min_features, const
 // Returns an integer of number of keypoints in the input image. Keypoint locations are illustrated on output image
 // Example of Use
 // sift_key_values = MySiftProcess(400, my_image, my_out_image);
-std::vector<double> scottindustrial::mySiftProcess(const int min_features, const cv::Mat& input, cv::Mat& output) {
-  cv::Ptr<cv::xfeatures2d::SIFT> detector = cv::xfeatures2d::SIFT::create(min_features); //int _nfeatures, int _nOctaveLayers, double _contrastThreshold, double _edgeThreshold, double _sigma);
+std::vector<double> scottindustrial::mySiftProcess(const int n_best_features, const cv::Mat& input, cv::Mat& output) {
+  cv::Ptr<cv::xfeatures2d::SIFT> detector = cv::xfeatures2d::SIFT::create(n_best_features);  // Creation of detector of type SIFT
   double time1, time2, time_taken = 0;
   std::vector<double> output_vector(2);
   std::vector<cv::KeyPoint> keypoints;
-  double frequency = cv::getTickFrequency();
 
   //Calculating the time taken for the detect function to run
+  //Time measured by taking difference of time before function, time after function, divided by the tick frequency. 
   time1 = (double)cv::getTickCount();
-  detector->cv::Feature2D::detect(input, keypoints);
+  detector->cv::Feature2D::detect(input, keypoints);  //Detect features in input image. Stores coordinates of key points in keypoints variable
   time2 = (double)cv::getTickCount();
   time_taken = (time2 - time1) / (cv::getTickFrequency());
 
+  //Marks location of keypoints on output Mat object with circles. 
   cv::drawKeypoints(input, keypoints, output, cv::Scalar::all(-1), cv::DrawMatchesFlags::DEFAULT);
   
   int number_keypoints = keypoints.size();
@@ -73,19 +75,20 @@ std::vector<double> scottindustrial::mySiftProcess(const int min_features, const
 // Returns an integer of number of keypoints in the input image. Keypoint locations are illustrated on output image
 // Example of Use
 // orb_key_values = MyOrbProcess(400, my_image, my_out_image);
-std::vector<double> scottindustrial::myOrbProcess(const int min_features, const cv::Mat& input, cv::Mat& output) {
-  cv::Ptr<cv::ORB> detector = cv::ORB::create(min_features); //int _nfeatures, int _nOctaveLayers, double _contrastThreshold, double _edgeThreshold, double _sigma);
+std::vector<double> scottindustrial::myOrbProcess(const int max_features, const cv::Mat& input, cv::Mat& output) {
+  cv::Ptr<cv::ORB> detector = cv::ORB::create(max_features);  // Creation of detector of type ORB
   double time1, time2, time_taken = 0;
   std::vector<double> output_vector(2);
   std::vector<cv::KeyPoint> keypoints;
-  double frequency = cv::getTickFrequency();
 
   //Calculating the time taken for the detect function to run
+  //Time measured by taking difference of time before function, time after function, divided by the tick frequency. 
   time1 = (double)cv::getTickCount();
-  detector->cv::Feature2D::detect(input, keypoints);
+  detector->cv::Feature2D::detect(input, keypoints);  //Detect features in input image. Stores coordinates of key points in keypoints variable
   time2 = (double)cv::getTickCount();
   time_taken = (time2 - time1) / (cv::getTickFrequency());
 
+  //Marks location of keypoints on output Mat object with circles. 
   cv::drawKeypoints(input, keypoints, output, cv::Scalar::all(-1), cv::DrawMatchesFlags::DEFAULT);
 
   int number_keypoints = keypoints.size();
@@ -99,7 +102,7 @@ std::vector<double> scottindustrial::myOrbProcess(const int min_features, const 
 // Example of Use
 // scottindustrial::printFeatureResult(vector containing performance results, type of feature detection);
 void scottindustrial::printFeatureResult(const std::vector<double> performance_vector, const char* detector_type) {
-  std::cout << detector_type << " Feature Detection" << std::endl;
-  std::cout << "Features Detected: " << performance_vector[0] << std::endl;
-  std::cout << "Time Taken: " << performance_vector[1] << std::endl;
+  printf("%s Feature Detection\n", detector_type);
+  printf("Features Detected: %f \n", performance_vector[0]);
+  printf("Time Taken: %f \n", performance_vector[1]);
 }

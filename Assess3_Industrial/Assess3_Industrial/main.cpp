@@ -34,41 +34,41 @@ int main(int argc, char** argv)
 {
   // Error check to ensure executable is run properly. 
   // Error is displayed if no image is loaded when program run
-	if (argc != 2)
-	{
-	  std::cout << " Error in input: Please load an Image" << std::endl;
-	  return -1;
-	}
+  if (argc != 2)
+  {
+    printf(" Error in input: Please load an Image\n");
+    return -1;
+  }
   // String variables to pass into 
   char sift_type[5] = "SIFT";
   char orb_type[5] = "ORB";
 
   // Variable to load image as Color Mat Object
-	cv::Mat my_image;
-	my_image = cv::imread(argv[1], CV_LOAD_IMAGE_COLOR);   // Read the file
+  cv::Mat my_image;
+  my_image = cv::imread(argv[1], CV_LOAD_IMAGE_COLOR);   // Read the file
 
   // Error displayed if the loaded image could not be found
-	if (!my_image.cv::Mat::data)                              // Check for invalid input
-	{
-		std::cout << "Image could not be found" << std::endl;
-		return -1;
-	}
+  if (!my_image.cv::Mat::data)                              // Check for invalid input
+  {
+    printf("Image could not be found \n");
+    return -1;
+  }
   // Creation of Mat Object Variables to store output feature detected images
   cv::Mat out_sift_im = my_image.cv::Mat::clone();
   cv::Mat out_orb_im = my_image.cv::Mat::clone();
 
   // Creation of variable for minimum number of features to be detected
-  int Hessian = 1000;
+  int feature_variable = 2500;
 
   // Calculation of SIFT Feature Detection performance
   std::vector<double> sift_output(2);  // Creation of vector to store feature detection performance results; number of features detected (1) and time taken (2)
-  sift_output = scottindustrial::mySiftProcess(Hessian, my_image, out_sift_im);  // Perform SIFT feature detection of loaded image. Returns the number of features detected and time taken. 
+  sift_output = scottindustrial::mySiftProcess(feature_variable, my_image, out_sift_im);  // Perform SIFT feature detection of loaded image. Returns the number of features detected and time taken. 
   scottindustrial::printFeatureResult(sift_output, sift_type);  //Display results from SIFT feature detection. Display shows Type of Feature Detection, Number of features detected, and Time taken to detect features. 
   cv::imshow("SIFT Features", out_sift_im);
 
   // Calculation of ORB Feature Detection performance
   std::vector<double> orb_output(2);  // Creation of vector to store feature detection performance results; number of features detected (1) and time taken (2)
-  orb_output = scottindustrial::myOrbProcess(Hessian, my_image, out_orb_im);  // Perform SIFT feature detection of loaded image. Returns the number of features detected and time taken. 
+  orb_output = scottindustrial::myOrbProcess(feature_variable, my_image, out_orb_im);  // Perform SIFT feature detection of loaded image. Returns the number of features detected and time taken. 
   scottindustrial::printFeatureResult(orb_output, orb_type);  //Display results from ORB feature detection. Display shows Type of Feature Detection, Number of features detected, and Time taken to detect features. 
   cv::imshow("ORB Features", out_orb_im);
 
